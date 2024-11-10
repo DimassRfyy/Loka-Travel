@@ -23,11 +23,15 @@ class FrontController extends Controller
         return view('frontend.index', compact('categories', 'tours'));
     }
 
-    public function categories(Category $categories)
+    public function categories(Category $category)
     {
-        $categories = Category::orderByDesc('id')->paginate('10');
-        // return view('frontend.categories', compact('categories'));
-    }
+        $packageTours = PackageTour::where('categoriesfk', $category->id)
+                        ->orderByDesc('id')
+                        ->paginate(10);
+    
+        return view('frontend.categories', compact('category', 'packageTours'));
+    }    
+
 
     public function details(PackageTour $packageTour)
     {

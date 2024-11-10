@@ -9,7 +9,7 @@
 <body class="font-poppins text-black">
     <section id="content" class="max-w-[640px] w-full mx-auto bg-[#F9F2EF] min-h-screen flex flex-col gap-8 pb-[120px]">
         <nav class="mt-8 px-4 w-full flex items-center justify-between">
-          <a href="checkout.html">
+          <a href="{{ url()->previous() }}">
             <img src="{{ asset('assets/icons/back.png')}}" alt="back">
           </a>
           <p class="text-center m-auto font-semibold">Payment</p>
@@ -30,7 +30,7 @@
                   <div class="w-4 h-4">
                     <img src="{{ asset('assets/icons/calendar-grey.svg')}}" class="w-4 h-4" alt="icon">
                   </div>
-                  <span class="text-darkGrey text-sm tracking-035 leading-[22px]">{{ $packageBooking->startdate->format('d F Y') }} - {{ $packageBooking->enddate->format('d F Y') }}</span>
+                  <span class="text-darkGrey text-xs tracking-035 leading-[22px]">{{ $packageBooking->startdate->format('d F Y') }} - {{ $packageBooking->enddate->format('d F Y') }}</span>
                 </div>
                 </div>
               </div>
@@ -54,7 +54,7 @@
                   <div class="w-6 h-6 flex shrink-0 overflow-hidden">
                     <img src="{{ asset('assets/icons/bank.svg')}}" class="w-full h-full object-contain object-center" alt="logo">
                   </div>
-                  <span class="text-sm tracking-035 leading-[22px]">Duo Travel Trip</span>
+                  <span class="text-sm tracking-035 leading-[22px]">{{ $packageBooking->bank->bankaccountname }}</span>
                 </div>
               </div>
               <div class="flex flex-col gap-1">

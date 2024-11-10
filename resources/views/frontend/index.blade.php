@@ -39,7 +39,7 @@
           <div class="main-carousel buttons-container">
             @foreach ($categories as $category)
 
-                <a href="{{ route('categories',$category->slug) }}" class="group px-2 first-of-type:pl-4 last-of-type:pr-4">
+                <a href="{{ route('categories', $category->slug) }}" class="group px-2 first-of-type:pl-4 last-of-type:pr-4">
                 <div class="p-3 flex items-center gap-2 rounded-[10px] border border-[#4D73FF] group-hover:bg-[#4D73FF] transition-all duration-300">
                     <div class="w-6 h-6 flex shrink-0">
                     <img src="{{ Storage::url($category->icon) }}" alt="icon">
@@ -67,7 +67,7 @@
                       <div class="w-4 h-4 flex shrink-0">
                         <img src="{{ asset('assets/icons/location-map.svg') }}" alt="icon">
                       </div>
-                      <span class="text-sm text-darkGrey tracking-035">{{ $tour->location }}</span>
+                      <span class="text-xs text-darkGrey tracking-035">{{ $tour->location }}</span>
                     </div>
                   </div>
                   <div class="flex flex-col gap-1 text-right">
@@ -133,39 +133,42 @@
           @endforeach
         </div>
         <div class="navigation-bar fixed bottom-0 z-50 max-w-[640px] w-full h-[85px] bg-white rounded-t-[25px] flex items-center justify-evenly py-[45px]">
-            <a href="{{ route('home') }}" class="menu opacity-25">
-                <div class="flex flex-col justify-center w-fit gap-1">
+          <a href="{{ route('home') }}" class="menu {{ Route::currentRouteName() == 'home' ? '' : 'opacity-25' }}">
+              <div class="flex flex-col justify-center w-fit gap-1">
                   <div class="w-4 h-4 flex shrink-0 overflow-hidden mx-auto text-[#4D73FF]">
-                    <img src="{{ asset('assets/icons/home.svg') }}" alt="icon">
+                      <img src="{{ asset('assets/icons/home-active.svg') }}" alt="icon">
                   </div>
                   <p class="font-semibold text-xs leading-[20px] tracking-[0.35px]">Home</p>
-                </div>
-              </a>
-              <a href="" class="menu opacity-25">
-                <div class="flex flex-col justify-center w-fit gap-1">
+              </div>
+          </a>
+    
+          <a href="{{ route('search') }}" class="menu {{ Route::currentRouteName() == 'search' ? '' : 'opacity-25' }}">
+              <div class="flex flex-col justify-center w-fit gap-1">
                   <div class="w-4 h-4 flex shrink-0 overflow-hidden mx-auto text-[#4D73FF]">
-                    <img src="{{ asset('assets/icons/search.svg') }}" alt="icon">
+                      <img src="{{ asset('assets/icons/search.svg') }}" alt="icon">
                   </div>
                   <p class="font-semibold text-xs leading-[20px] tracking-[0.35px]">Search</p>
-                </div>
-              </a>
-              <a href="{{ route('dashboard.bookings') }}" class="menu">
-                <div class="flex flex-col justify-center w-fit gap-1">
+              </div>
+          </a>
+      
+          <a href="{{ route('dashboard.bookings') }}" class="menu {{ Route::currentRouteName() == 'dashboard.bookings' ? '' : 'opacity-25' }}">
+              <div class="flex flex-col justify-center w-fit gap-1">
                   <div class="w-4 h-4 flex shrink-0 overflow-hidden mx-auto text-[#4D73FF]">
-                    <img src="{{ asset('assets/icons/calendar-blue.svg') }}" alt="icon">
+                      <img src="{{ asset('assets/icons/calendar-blue.svg') }}" alt="icon">
                   </div>
                   <p class="font-semibold text-xs leading-[20px] tracking-[0.35px]">Schedule</p>
-                </div>
-              </a>
-              <a href="{{ route('profile.edit') }}" class="menu opacity-25">
-                <div class="flex flex-col justify-center w-fit gap-1">
+              </div>
+          </a>
+      
+          <a href="{{ route('profile.edit') }}" class="menu {{ Route::currentRouteName() == 'profile.edit' ? '' : 'opacity-25' }}">
+              <div class="flex flex-col justify-center w-fit gap-1">
                   <div class="w-4 h-4 flex shrink-0 overflow-hidden mx-auto text-[#4D73FF]">
-                    <img src="{{ asset('assets/icons/user-flat.svg') }}" alt="icon">
+                      <img src="{{ asset('assets/icons/user-flat.svg') }}" alt="icon">
                   </div>
                   <p class="font-semibold text-xs leading-[20px] tracking-[0.35px]">Profile</p>
-                </div>
-            </a>
-        </div>
+              </div>
+          </a>
+      </div>
     </section>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

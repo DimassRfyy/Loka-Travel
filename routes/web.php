@@ -9,8 +9,9 @@ use App\Http\Controllers\PackageBookingController;
 use App\Http\Controllers\FrontController;
 
 Route::get('/', [FrontController::class, 'index'])->name('home');
-Route::get('/categories/{categories:slug}', [FrontController::class, 'categories'])->name('categories');
+Route::get('/categories/{category:slug}', [FrontController::class, 'categories'])->name('categories');
 Route::get('/details/{packageTour:slug}', [FrontController::class, 'details'])->name('details');
+Route::get('/search', [FrontController::class, 'search'])->name('search');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

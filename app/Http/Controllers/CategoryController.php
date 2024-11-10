@@ -37,7 +37,7 @@ class CategoryController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'icon' => 'required|image|mimes:png,jpg,jpeg,webp',
+            'icon' => 'required|image|mimes:png,jpg,jpeg,webp,svg',
         ]);
         // Upload image
         $data['icon'] = $request->file('icon')->store('icons','public');

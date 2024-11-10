@@ -69,7 +69,7 @@ class PackageBankController extends Controller
             'bankname' => 'required|string',
             'bankaccountnumber' => 'required|numeric',
             'bankaccountname' => 'required|string',
-            'logo' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'logo' => 'image|mimes:jpeg,png,jpg,svg',
         ]);
         if($request->hasFile('logo')){
             // delete old image

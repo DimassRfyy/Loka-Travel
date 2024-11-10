@@ -19,6 +19,6 @@ class Category extends Model
 
     public function tours()
     {
-        return $this->hasMany(PackageTour::class);
+        return $this->hasMany(PackageTour::class, 'categoriesfk');
     }
 }
