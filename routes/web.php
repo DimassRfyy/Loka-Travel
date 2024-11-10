@@ -1,17 +1,20 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialiteController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PackageBankController;
 use App\Http\Controllers\PackageTourController;
 use App\Http\Controllers\PackageBookingController;
-use App\Http\Controllers\FrontController;
 
 Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/categories/{category:slug}', [FrontController::class, 'categories'])->name('categories');
 Route::get('/details/{packageTour:slug}', [FrontController::class, 'details'])->name('details');
 Route::get('/search', [FrontController::class, 'search'])->name('search');
+Route::get('/auth/{provider}/redirect',[SocialiteController::class,'redirect'])->name('socialiteRedirect');
+Route::get('/auth/{provider}/callback',[SocialiteController::class,'callback'])->name('socialiteCallback');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

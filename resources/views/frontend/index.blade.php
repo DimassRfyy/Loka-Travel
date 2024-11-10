@@ -13,9 +13,13 @@
         <nav class="mt-8 px-4 w-full flex items-center justify-between">
           <div class="flex items-center gap-3">
             <div class="w-12 h-12 border-4 border-white rounded-full overflow-hidden flex shrink-0 shadow-[6px_8px_20px_0_#00000008]">
-                @auth
-                    <img src="{{ Storage::url(Auth::user()->avatar) }}" class="w-full h-full object-cover object-center" alt="photo">
-                @endauth
+              @auth
+              @if (str_contains(Auth::user()->avatar, 'http'))
+                  <img src="{{ Auth::user()->avatar }}" class="w-full h-full object-cover object-center" alt="photo">
+              @else
+                  <img src="{{ Storage::url(Auth::user()->avatar) }}" class="w-full h-full object-cover object-center" alt="photo">
+              @endif
+          @endauth
                 @guest
                     <img src="{{ asset('assets/photos/pfp.png') }}" class="w-full h-full object-cover object-center" alt="photo">
                 @endguest

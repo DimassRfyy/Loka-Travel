@@ -17,6 +17,10 @@
                         <img src="{{ Storage::url($PackageBooking->tour->thumbnail) }}" alt="" class="rounded2xl object-cover w-[400px] h-[400px]" 90px="">
                     </div>
                     <div>
+                        <h3 class="text-lg font-semibold">Proof Image</h3>
+                        <img src="{{ Storage::url($PackageBooking->proof) }}" alt="" class="rounded2xl object-cover w-[400px] h-[400px]" 90px="">
+                    </div>
+                    <div>
                         <h3 class="text-lg font-semibold">Package Details</h3>
                         <p>Package Name: {{ $PackageBooking->tour->name }}</p>
                         <p>Package Price: {{ $PackageBooking->tour->price }}</p>
@@ -28,6 +32,7 @@
                         <p>Customer Phone: {{ $PackageBooking->customer->phonenumber }}</p>
                     </div>
                 </div>
+                @if ($PackageBooking->ispaid == 0)
                 <div class="flex justify-end">
                     <form action="{{ route('admin.package_bookings.update', $PackageBooking->id) }}" method="POST">
                         @csrf
@@ -35,7 +40,20 @@
                         <input type="hidden" name="ispaid" value="2">
                         <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Approve</button>
                     </form>
-                </div>
+                </div> 
+                @endif
+                @if ($PackageBooking->ispaid == 1)
+                <div class="flex justify-end">
+                    <form action="{{ route('admin.package_bookings.update', $PackageBooking->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="ispaid" value="2">
+                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Approve</button>
+                    </form>
+                </div> 
+                @else
+                
+                @endif
             </div>
         </div>
     </div>

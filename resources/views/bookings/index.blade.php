@@ -34,8 +34,8 @@
                                 <th class="table-cell text-left">Name</th>
                                 <th class="table-cell text-left">Payment</th>
                                 <th class="table-cell text-left">Total Price</th>
+                                <th class="table-cell text-left">Tanggal</th>
                                 <th class="table-cell text-left">Customer</th>
-                                <th class="table-cell text-left">Quantity</th>
                                 <th class="table-cell text-left">Option</th>
                             </tr>
                         </thead>
@@ -56,7 +56,7 @@
                                     @endif
                                 </td>
                                 <td class="table-cell"> {{ number_format($item->totalamount) }} </td>
-                                <td class="table-cell"> {{ \Carbon\Carbon::parse($item->startdate)->diffInDays($item->enddate) }} </td>
+                                <td class="table-cell"> {{ \Carbon\Carbon::parse($item->startdate)->locale('id')->isoFormat('D MMMM Y') }} - {{ \Carbon\Carbon::parse($item->enddate)->locale('id')->isoFormat('D MMMM Y') }} </td>
                                 <td class="table-cell"> {{ $item->customer->name }} </td>
 
                                 <td class="table-cell">

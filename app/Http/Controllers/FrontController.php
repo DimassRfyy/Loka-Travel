@@ -44,29 +44,31 @@ class FrontController extends Controller
         return view('frontend.book', compact('packageTour'));
     }
     public function book_store(Request $request, PackageTour $packageTour)
-    {
-        // dd($request->all());
-        $data = $request->validate([
-            'startdate' => 'required|date',
-            'quantity' => 'required|numeric',
-            'totalamount' => 'required|numeric',
-        ]);
-        // dd($packageTour->id);
-        $bank = PackageBank::first();
-        $data['packagetoursfk'] = $packageTour->id;
-        $data['usersfk'] = Auth::user()->id;
-        $data['packagebanksfk'] = $bank->id;
-        $data['proof'] = 0;
-        $data['ispaid'] = 0;
-        $data['insurance'] = 300000 * $data['quantity'];
-        $data['tax'] = $packageTour->price * 0.1 * $data['quantity'];
-        $data['subtotal'] = $packageTour->price * $data['quantity'];
-        $data['totalamount'] = $data['subtotal'] + $data['tax'] + $data['insurance'];
-        $data['startdate'] = new Carbon($request->startdate);
-        $data['enddate'] = $data['startdate']->addDays($packageTour->days);
-        $packageBooking = PackageBooking::create($data);
-        return redirect()->route('choose.bank', $packageBooking->id);
-    }
+{
+    $data = $request->validate([
+        'startdate' => 'required|date',
+        'quantity' => 'required|numeric',
+        'totalamount' => 'required|numeric',
+    ]);
+
+    $bank = PackageBank::first();
+    $startDate = new Carbon($request->startdate);
+    
+    $data['packagetoursfk'] = $packageTour->id;
+    $data['usersfk'] = Auth::user()->id;
+    $data['packagebanksfk'] = $bank->id;
+    $data['proof'] = 0;
+    $data['ispaid'] = 0;
+    $data['insurance'] = 300000 * $data['quantity'];
+    $data['tax'] = $packageTour->price * 0.1 * $data['quantity'];
+    $data['subtotal'] = $packageTour->price * $data['quantity'];
+    $data['totalamount'] = $data['subtotal'] + $data['tax'] + $data['insurance'];
+    $data['startdate'] = $startDate;
+    $data['enddate'] = $startDate->copy()->addDays($packageTour->days); // Gunakan copy()
+
+    $packageBooking = PackageBooking::create($data);
+    return redirect()->route('choose.bank', $packageBooking->id);
+}
     public function choose_bank(PackageBooking $packageBooking)
     {
         if($packageBooking->usersfk != Auth::user()->id){

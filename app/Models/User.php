@@ -8,6 +8,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -53,6 +54,10 @@ class User extends Authenticatable
     public function bookings()
     {
         return $this->hasMany(packageBooking::class);
+    }
+
+    public function socialites():HasMany {
+        return $this->hasMany(Socialite::class);
     }
 
 

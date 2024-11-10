@@ -30,13 +30,17 @@
                   </div>
                 <span class="text-darkGrey text-sm tracking-035 leading-[22px]">{{ $packagebooking->startdate->format('d M Y') }} - {{ $packagebooking->enddate->format('d M Y') }}</span>
                 </div>
-                @if($packagebooking->ispaid == 1)
+                @if($packagebooking->ispaid == 2)
                 <div class="success-badge w-fit border border-[#60A5FA] p-[4px_8px] rounded-lg bg-[#EFF6FF] flex items-center justify-center">
                   <span class="text-xs leading-[22px] tracking-035 text-[#2563EB]">Success Paid</span>
                 </div>
-                @else
+                @elseif ($packagebooking->ispaid == 1)
                 <div class="pending-badge w-fit border border-[#FCD34D] p-[4px_8px] rounded-lg bg-[#FFFBEA] flex items-center justify-center">
-                  <span class="text-xs leading-[22px] tracking-035 text-[#F59E0B]">Pending Payment</span>
+                  <span class="text-xs leading-[22px] tracking-035 text-[#F59E0B]">Confirmation Process</span>
+                </div>
+                @else
+                <div class="pending-badge w-fit border bg-red p-[4px_8px] rounded-lg bg-[#FFFBEA] flex items-center justify-center">
+                  <span class="text-xs leading-[22px] tracking-035 text-white">Not Yet Paid</span>
                 </div>
                 @endif
               </div>
@@ -81,6 +85,17 @@
               </div>
             </div>
           </div>
+
+          @if ($packagebooking->ispaid == 0)
+          <div class="flex gap-3 px-4 ">
+            <a href="home.html" class="p-[16px_24px] rounded-xl text-sm bg-red w-full text-white text-center flex items-center justify-center gap-3 transition-all duration-300">
+              <span>Cancel Payment</span>
+            </a>
+            <a href="home.html" class="p-[16px_24px] rounded-xl text-sm bg-blue w-full text-white text-center flex items-center justify-center gap-3  hover:bg-[#06C755] transition-all duration-300">
+              <span>Continue Payment</span>
+            </a>
+          </div>
+          @else
           <div class="flex flex-col gap-3 px-4 ">
             <a href="home.html" class="p-[16px_24px] rounded-xl bg-blue w-full text-white text-center flex items-center justify-center gap-3  hover:bg-[#06C755] transition-all duration-300">
               <div class="w-6 h-6">
@@ -89,6 +104,7 @@
               <span>Contact Travel Agent</span>
             </a>
           </div>
+          @endif
         </div>
     </section>
 </body>

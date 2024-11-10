@@ -32,12 +32,16 @@
                     <p class="text-sm leading-[22px] tracking-035 text-darkGrey">{{ $item->tour->days }} days | {{ $item->quantity }} packs</p>
                     @if ($item->ispaid == 0)
                         <div class="process-badge w-fit border border-[#FCD34D] p-[4px_8px] rounded-lg bg-[#FFFBEA] flex items-center justify-center">
-                            <span class="text-xs leading-[22px] tracking-035 text-[#F59E0B]">Process Paid</span>
+                            <span class="text-xs leading-[22px] tracking-035 text-[#F59E0B]">Not Yet Paid</span>
                         </div>
                     @elseif ($item->ispaid == 1)
-                        <div class="success-badge w-fit border border-[#60A5FA] p-[4px_8px] rounded-lg bg-[#EFF6FF] flex items-center justify-center">
-                            <span class="text-xs leading-[22px] tracking-035 text-[#2563EB]">Success Paid</span>
+                        <div style="border-color: #FCD34D; background-color:#FFFBEA;color:#F59E0B;" class="success-badge w-fit border  p-[4px_8px] rounded-lg flex items-center justify-center">
+                            <span class="text-xs leading-[22px] tracking-035">Confirmation Process</span>
                         </div>
+                    @elseif ($item->ispaid == 2)
+                    <div class="success-badge w-fit border border-[#60A5FA] p-[4px_8px] rounded-lg bg-[#EFF6FF] flex items-center justify-center">
+                      <span class="text-xs leading-[22px] tracking-035 text-[#2563EB]">Success Paid</span>
+                  </div>
                     @endif
                 </div>
               </div>
