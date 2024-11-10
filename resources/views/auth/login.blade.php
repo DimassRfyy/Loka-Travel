@@ -69,7 +69,7 @@
               <p class="text-sm leading-[25px] tracking-[0.6px] text-darkGrey">Welcome Back! Enter your valid data</p>
             </div>
             <a href="{{ route('socialiteRedirect', 'google') }}"
-            class="flex hover:bg-[#06C755] transition-all duration-300 text-white w-full bg-[#4D73FF] gap-2 items-center justify-center border border-gray-300 dark:bg-gray-700 px-4 py-2 text-sm font-medium rounded-full dark:text-white shadow-sm disabled:cursor-wait disabled:opacity-50">
+            class="flex hover:bg-[#06C755] max-w-[311px] transition-all duration-300 text-white w-full bg-[#4D73FF] gap-2 items-center justify-center border border-gray-300 dark:bg-gray-700 px-4 py-2 text-sm font-medium rounded-full dark:text-white shadow-sm disabled:cursor-wait disabled:opacity-50">
             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <clipPath id="p.0">
                     <path d="m0 0l20.0 0l0 20.0l-20.0 0l0 -20.0z" clip-rule="nonzero"></path>

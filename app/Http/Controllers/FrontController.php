@@ -59,7 +59,7 @@ class FrontController extends Controller
     $data['packagebanksfk'] = $bank->id;
     $data['proof'] = 0;
     $data['ispaid'] = 0;
-    $data['insurance'] = 300000 * $data['quantity'];
+    $data['insurance'] = 200000 * $data['quantity'];
     $data['tax'] = $packageTour->price * 0.1 * $data['quantity'];
     $data['subtotal'] = $packageTour->price * $data['quantity'];
     $data['totalamount'] = $data['subtotal'] + $data['tax'] + $data['insurance'];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PackageBooking;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PackageBookingController extends Controller
@@ -72,6 +73,12 @@ class PackageBookingController extends Controller
      */
     public function destroy(PackageBooking $PackageBooking)
     {
-        abort(404);
+        $PackageBooking->delete();
+        alert()->success('Success', 'Booking deleted successfully.',);
+
+        if(Auth::user()->hasRole('customer')) {
+            return redirect()->route('dashboard.bookings');
+        }
+        return redirect()->route('admin.package_bookings.index');
     }
 }

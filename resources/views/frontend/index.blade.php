@@ -11,22 +11,22 @@
 <body class="font-poppins text-black">
     <section id="content" class="max-w-[640px] w-full mx-auto bg-[#F9F2EF] min-h-screen flex flex-col gap-8 pb-[120px]">
         <nav class="mt-8 px-4 w-full flex items-center justify-between">
+              @guest
+                <img src="{{ asset('assets/logos/logo.png') }}" width="170" height="75"  class="" alt="photo">
+              @endguest
           <div class="flex items-center gap-3">
+            @auth
             <div class="w-12 h-12 border-4 border-white rounded-full overflow-hidden flex shrink-0 shadow-[6px_8px_20px_0_#00000008]">
-              @auth
               @if (str_contains(Auth::user()->avatar, 'http'))
                   <img src="{{ Auth::user()->avatar }}" class="w-full h-full object-cover object-center" alt="photo">
               @else
                   <img src="{{ Storage::url(Auth::user()->avatar) }}" class="w-full h-full object-cover object-center" alt="photo">
               @endif
           @endauth
-                @guest
-                    <img src="{{ asset('assets/photos/pfp.png') }}" class="w-full h-full object-cover object-center" alt="photo">
-                @endguest
             </div>
+            @auth
             <div class="flex flex-col gap-1">
               <p class="text-xs tracking-035">Welcome!</p>
-              @auth
                   <p class="font-semibold">{{ Auth::user()->name }}</p>
               @endauth
             </div>

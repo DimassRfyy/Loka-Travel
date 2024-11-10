@@ -9,7 +9,7 @@
 <body class="font-poppins text-black">
     <section id="content" class="max-w-[640px] w-full mx-auto bg-[#F9F2EF] min-h-screen flex flex-col gap-8 pb-[120px]">
         <nav class="mt-8 px-4 w-full flex items-center justify-between">
-          <a href="{{ url()->previous() }}">
+          <a href="#" onclick="confirmCancelBooking(event)">
             <img src="{{ asset('assets/icons/back.png')}}" alt="back">
           </a>
           <p class="text-center m-auto font-semibold">Payment</p>
@@ -114,5 +114,14 @@
     </section>
 
     <script src="{{ asset('js/payment.js') }}"></script>
+    <script>
+      function confirmCancelBooking(event) {
+          event.preventDefault(); // Mencegah tautan langsung mengarahkan
+          if (confirm("Yakin batalkan booking? Booking akan disimpan di schedule. Kamu bisa melanjutkan atau membatalkan booking.")) {
+              // Redirect ke halaman sebelumnya jika pengguna menekan 'OK'
+              window.location.href = "{{ url()->previous() }}";
+          }
+      }
+      </script>
 </body>
 </html>

@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('package_banks', PackageBankController::class);
         });
 
-        Route::middleware('can:manage transactions')->group(function(){
+        Route::middleware('can:checkout package')->group(function(){
             Route::resource('package_bookings', PackageBookingController::class);
         });
     });

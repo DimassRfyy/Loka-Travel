@@ -9,7 +9,7 @@
 <body class="font-poppins text-black">
     <section id="content" class="max-w-[640px] w-full mx-auto bg-[#F9F2EF] min-h-screen flex flex-col gap-8 pb-[120px]">
         <nav class="mt-8 px-4 w-full flex items-center justify-between">
-          <a href="{{ url()->previous() }}">
+          <a href="{{ route('dashboard.bookings') }}">
             <img src="{{  asset('assets/icons/back.png')  }}" alt="back">
           </a>
           <p class="text-center m-auto font-semibold">Trip Details</p>
@@ -35,7 +35,7 @@
                   <span class="text-xs leading-[22px] tracking-035 text-[#2563EB]">Success Paid</span>
                 </div>
                 @elseif ($packagebooking->ispaid == 1)
-                <div class="pending-badge w-fit border border-[#FCD34D] p-[4px_8px] rounded-lg bg-[#FFFBEA] flex items-center justify-center">
+                <div style="border-color: #FCD34D; background-color:#FFFBEA;color:#F59E0B;" class="pending-badge w-fit border p-[4px_8px] rounded-lg bg-[#FFFBEA] flex items-center justify-center">
                   <span class="text-xs leading-[22px] tracking-035 text-[#F59E0B]">Confirmation Process</span>
                 </div>
                 @else
@@ -71,7 +71,12 @@
                 <p id="subtotal" class="font-semibold text-blue">Rp {{ number_format($packagebooking->subtotal) }}</p>
               </div>
               <div class="flex justify-between items-center text-sm tracking-035 leading-[22px]">
-                <p>Insurance <span class="text-darkGrey">x<span id="total_quantity">2</span></span></p>
+                <p>
+                  Insurance 
+                  @if($packagebooking->quantity > 1)
+                      <span class="text-darkGrey">x<span id="total_quantity">{{ $packagebooking->quantity }}</span></span>
+                  @endif
+              </p>              
                 <p id="insurance" class="font-semibold text-blue">Rp {{ number_format($packagebooking->insurance) }}</p>
               </div>
               <div class="flex justify-between items-center text-sm tracking-035 leading-[22px]">
@@ -88,10 +93,12 @@
 
           @if ($packagebooking->ispaid == 0)
           <div class="flex gap-3 px-4 ">
-            <a href="home.html" class="p-[16px_24px] rounded-xl text-sm bg-red w-full text-white text-center flex items-center justify-center gap-3 transition-all duration-300">
-              <span>Cancel Payment</span>
-            </a>
-            <a href="home.html" class="p-[16px_24px] rounded-xl text-sm bg-blue w-full text-white text-center flex items-center justify-center gap-3  hover:bg-[#06C755] transition-all duration-300">
+            <form method="POST" action="{{ route('admin.package_bookings.destroy', $packagebooking->id) }}" class="p-[16px_24px] rounded-xl text-sm bg-red w-full text-white text-center flex items-center justify-center gap-3 transition-all duration-300">
+              @csrf
+              @method('DELETE')
+              <button type="submit">Cancel Payment</button>
+            </form>
+            <a href="{{ route('book.payment', $packagebooking->id) }}" class="p-[16px_24px] rounded-xl text-sm bg-blue w-full text-white text-center flex items-center justify-center gap-3  hover:bg-[#06C755] transition-all duration-300">
               <span>Continue Payment</span>
             </a>
           </div>

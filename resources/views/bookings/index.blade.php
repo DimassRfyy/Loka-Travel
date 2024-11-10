@@ -61,12 +61,12 @@
 
                                 <td class="table-cell">
                                     <a href="{{ route('admin.package_bookings.show',$item->id) }}" class="px-4 py-2 rounded-lg bg-blue-800 text-white">Show Details</a>
-                                    {{-- form delete --}}
-                                    {{-- <form action="{{ route('admin.categories.destroy',$item->id) }}" method="POST" class="inline">
+                                  
+                                    <form action="{{ route('admin.package_bookings.destroy', $item->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="px-4 py-2 rounded-lg bg-red-800 text-white">Delete</button>
-                                    </form> --}}
+                                    </form>
                                 </td>
                             </tr>
                         </tbody>
