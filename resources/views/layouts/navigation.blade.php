@@ -34,6 +34,12 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('admin.cities.index')" :active="request()->routeIs('admin.cities.index')">
+                        {{ __('Cities') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('admin.package_banks.index')" :active="request()->routeIs('admin.banks.index')">
                         {{ __('Banks') }}
                     </x-nav-link>

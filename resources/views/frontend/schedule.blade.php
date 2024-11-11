@@ -28,8 +28,8 @@
                     <p class="font-semibold text-sm tracking-035 leading-[22px]">{{ $item->tour->name }}</p>
                     <p class="text-sm leading-[22px] tracking-035 text-darkGrey">{{ $item->tour->days }} days | {{ $item->quantity }} packs</p>
                     @if ($item->ispaid == 0)
-                        <div class="process-badge w-fit border border-[#FCD34D] p-[4px_8px] rounded-lg bg-[#FFFBEA] flex items-center justify-center">
-                            <span class="text-xs leading-[22px] tracking-035 text-[#F59E0B]">Not Yet Paid</span>
+                        <div class="process-badge bg-red w-fit border p-[4px_8px] rounded-lg text-white flex items-center justify-center">
+                            <span class="text-xs leading-[22px] tracking-035">Not Yet Paid</span>
                         </div>
                     @elseif ($item->ispaid == 1)
                         <div style="border-color: #FCD34D; background-color:#FFFBEA;color:#F59E0B;" class="success-badge w-fit border  p-[4px_8px] rounded-lg flex items-center justify-center">

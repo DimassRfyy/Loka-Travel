@@ -7,6 +7,7 @@ use App\Models\PackagePhoto;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PackageTour extends Model
 {
@@ -30,5 +31,9 @@ class PackageTour extends Model
     public function photos()
     {
         return $this->hasMany(PackagePhoto::class, 'packagetoursfk', 'id');
+    }
+
+    public function cities():HasMany {
+        return $this->hasMany(City::class, 'packagetoursfk', 'id');
     }
 }

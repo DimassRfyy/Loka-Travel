@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\PackageBankController;
 use App\Http\Controllers\PackageTourController;
 use App\Http\Controllers\PackageBookingController;
@@ -49,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function(){
         Route::middleware('can:manage categories')->group(function(){
             Route::resource('categories', CategoryController::class);
+            Route::resource('cities', CityController::class);
         });
 
         Route::middleware('can:manage packages')->group(function(){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\City;
 use App\Models\PackageBank;
 use App\Models\PackageTour;
 use Illuminate\Http\Request;
@@ -19,8 +20,9 @@ class FrontController extends Controller
         // $id = Auth::user()->id;
         // $user = User::find($id);
         $categories = Category::orderByDesc('id')->paginate('10');
+        $cities = City::orderByDesc('id')->paginate('10');
         $tours = PackageTour::orderByDesc('id')->paginate('10');
-        return view('frontend.index', compact('categories', 'tours'));
+        return view('frontend.index', compact('categories', 'tours','cities'));
     }
 
     public function categories(Category $category)
@@ -128,5 +130,18 @@ class FrontController extends Controller
             abbort(403, 'You are not authorized to access this page');
         }
         return view('frontend.schedule_details', compact('packagebooking'));
+    }
+
+    public function phonenumber_user_socialite(Request $request, User $user) {
+        $phone = $request->validate([
+            'phonenumber' => 'required|tel',
+        ]);
+
+        $user->update($phone);
+        return redirect()->route('home');
+    }
+
+    public function search() {
+        return view('frontend.search');
     }
 }
