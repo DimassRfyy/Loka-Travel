@@ -13,11 +13,10 @@ class City extends Model
         'name',
         'slug',
         'image',
-        'packagetoursfk',
     ];
 
-    public function tour()
+    public function tours()
     {
-        return $this->belongsTo(PackageTour::class, 'packagetoursfk');
+        return $this->hasMany(PackageTour::class, 'citiesfk');
     }
 }

@@ -12,7 +12,7 @@
           <a href="{{ route('home') }}">
             <img src="/assets/icons/back.png" alt="back">
           </a>
-          <p class="text-center m-auto font-semibold">{{ $category->name }}</p>
+          <p class="text-center m-auto font-semibold">{{ $city->name }}</p>
           <div class="w-12"></div>
         </nav>
         <div class="flex flex-col gap-3 px-4">
@@ -52,7 +52,7 @@
             </div>
           </a>
           @empty
-          <p>gaada data</p>
+          <p>Belum ada data</p>
          @endforelse 
         </div>
         <div class="navigation-bar fixed bottom-0 z-50 max-w-[640px] w-full h-[85px] bg-white rounded-t-[25px] flex items-center justify-evenly py-[45px]">

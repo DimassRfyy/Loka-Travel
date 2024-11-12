@@ -9,7 +9,7 @@
 <body class="font-poppins text-black">
     <section id="content" class="max-w-[640px] w-full mx-auto bg-[#F9F2EF] min-h-screen flex flex-col gap-8 pb-[120px]">
         <nav class="mt-8 px-4 w-full flex items-center justify-between">
-          <a href="{{ route('home') }}">
+          <a href="{{ url()->previous() }}">
             <img src="{{ asset('assets/icons/back.png') }}" alt="back">
           </a>
           <p class="text-center m-auto font-semibold">Details</p>
@@ -41,7 +41,7 @@
               </div>
               <div class="flex flex-col gap-1">
                 <p class="text-sm leading-[22px] tracking-[0.35px] text-darkGrey">Location</p>
-                <p class="font-semibold text-sm tracking-035">{{ $packageTour->location }}</p>
+                <p class="font-semibold text-sm tracking-035">{{ $packageTour->city->name }}, Indonesia</p>
               </div>
             </div>
             <div class="flex flex-col gap-1">

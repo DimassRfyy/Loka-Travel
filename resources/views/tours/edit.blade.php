@@ -49,10 +49,14 @@
                             @enderror
                         </div>
                         <div class="flex flex-col gap-y-2">
-                            <label for="location" class="text-lg">Location</label>
-                            <input type="text" name="location" id="location" class="rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:border-blue-500" value="{{ $packageTour->location }}">
+                            <label for="citiesfk" class="text-lg">City</label>
+                            <select name="citiesfk" id="citiesfk" class="rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:border-blue-500">
+                                @foreach ($cities as $city)
+                                    <option value="{{ $city->id }}" {{ $city->id == $packageTour->citiesfk ? 'selected' : '' }}>{{ $city->name }}</option>
+                                @endforeach
+                            </select>
                             {{-- if error --}}
-                            @error('location')
+                            @error('citiesfk')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>

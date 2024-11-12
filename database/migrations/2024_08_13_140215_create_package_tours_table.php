@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('package_tours', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
             $table->string('thumbnail');
-            $table->string('location');
             $table->text('about');
             $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('days');
             $table->foreignId('categoriesfk')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('citiesfk')->references('id')->on('cities')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

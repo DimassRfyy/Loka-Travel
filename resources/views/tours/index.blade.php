@@ -18,7 +18,7 @@
                             <th class="table-cell text-left">Thumbnail</th>
                             <th class="table-cell text-left">Category</th>
                             <th class="table-cell text-left">Name</th>
-                            <th class="table-cell text-left">Location</th>
+                            <th class="table-cell text-left">City</th>
                             <th class="table-cell text-left">Price</th>
                             <th class="table-cell text-left">Days</th>
                             <th class="table-cell text-left">Option</th>
@@ -32,7 +32,7 @@
                             </td>
                             <td class="table-cell">{{ $tour->category->name }}</td>
                             <td class="table-cell">{{ $tour->name }}</td>
-                            <td class="table-cell">{{ $tour->location }}</td>
+                            <td class="table-cell">{{ $tour->city->name }}</td>
                             <td class="table-cell">{{ $tour->price }}</td>
                             <td class="table-cell">{{ $tour->days }}</td>
                             <td class="table-cell">

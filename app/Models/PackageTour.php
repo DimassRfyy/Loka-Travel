@@ -7,6 +7,7 @@ use App\Models\PackagePhoto;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PackageTour extends Model
@@ -17,6 +18,7 @@ class PackageTour extends Model
         'name',
         'slug',
         'categoriesfk',
+        'citiesfk',
         'thumbnail',
         'price',
         'location',
@@ -33,7 +35,8 @@ class PackageTour extends Model
         return $this->hasMany(PackagePhoto::class, 'packagetoursfk', 'id');
     }
 
-    public function cities():HasMany {
-        return $this->hasMany(City::class, 'packagetoursfk', 'id');
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'citiesfk');
     }
 }

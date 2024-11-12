@@ -33,19 +33,24 @@
                         </div>
 
                         <div class="flex flex-col gap-y-2">
-                            <label for="name" class="text-lg">Name</label>
-                            <input type="text" name="name" id="name" class="rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:border-blue-500" value="{{ old('name') }}">
+                            <label for="citiesfk" class="text-lg">City</label>
+                            <select name="citiesfk" id="citiesfk" class="rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:border-blue-500">
+                                <option hidden>Select City</option>
+                                @foreach ($cities as $city)
+                                    <option class="py-4" value="{{ $city->id }}">{{ $city->name }}</option>
+                                @endforeach
+                            </select>
                             {{-- if error --}}
-                            @error('name')
+                            @error('citiesfk')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="flex flex-col gap-y-2">
-                            <label for="location" class="text-lg">Location</label>
-                            <input type="text" name="location" id="location" class="rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:border-blue-500" value="{{ old('location') }}">
+                            <label for="name" class="text-lg">Name</label>
+                            <input type="text" name="name" id="name" class="rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:border-blue-500" value="{{ old('name') }}">
                             {{-- if error --}}
-                            @error('location')
+                            @error('name')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>

@@ -71,7 +71,7 @@
                       <div class="w-4 h-4 flex shrink-0">
                         <img src="{{ asset('assets/icons/location-map.svg') }}" alt="icon">
                       </div>
-                      <span class="text-xs text-darkGrey tracking-035">{{ $tour->location }}</span>
+                      <span class="text-xs text-darkGrey tracking-035">{{ $tour->city->name }}, Indonesia</span>
                     </div>
                   </div>
                   <div class="flex flex-col gap-1 text-right">
@@ -106,10 +106,10 @@
           <div class="main-carousel buttons-container">
             @foreach ($cities as $city)
 
-                <a href="{{ route('categories', $city->slug) }}" class="group px-2 first-of-type:pl-4 last-of-type:pr-4">
+                <a href="{{ route('cities', $city->slug) }}" class="group px-2 first-of-type:pl-4 last-of-type:pr-4">
                 <div class="p-3 flex items-center gap-2 rounded-[10px] border border-[#4D73FF] group-hover:bg-[#4D73FF] transition-all duration-300">
                     <div class="w-6 h-6 flex shrink-0">
-                    <img src="{{ Storage::url($city->image) }}" alt="icon">
+                    <img src="{{ Storage::url($city->image) }}" class="rounded-full" alt="icon">
                     </div>
                     <span class="text-sm tracking-[0.35px] text-[#4D73FF] group-hover:text-white transition-all duration-300">{{ $city->name }}</span>
                 </div>
@@ -132,7 +132,7 @@
                         <div class="w-4 h-4 flex shrink-0">
                         <img src="assets/icons/location-map.svg" alt="icon">
                         </div>
-                        <span class="text-sm text-darkGrey tracking-035">{{ $tour->location }}</span>
+                        <span class="text-xs text-darkGrey tracking-035">{{ $tour->city->name }}, Indonesia</span>
                     </div>
                     </div>
                     <div class="flex flex-col gap-1 text-right">

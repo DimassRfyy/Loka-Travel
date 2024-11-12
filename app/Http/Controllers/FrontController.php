@@ -33,6 +33,14 @@ class FrontController extends Controller
     
         return view('frontend.categories', compact('category', 'packageTours'));
     }    
+    public function cities(City $city)
+    {
+        $packageTours = PackageTour::where('citiesfk', $city->id)
+                        ->orderByDesc('id')
+                        ->paginate(10);
+    
+        return view('frontend.cities', compact('city', 'packageTours'));
+    }    
 
 
     public function details(PackageTour $packageTour)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\City;
 use App\Models\PackageTour;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -26,7 +27,8 @@ class PackageTourController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('tours.create', compact('categories'));
+        $cities = City::all();
+        return view('tours.create', compact('categories','cities'));
     }
 
     /**
@@ -37,12 +39,12 @@ class PackageTourController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'categoriesfk' => 'required',
+            'citiesfk' => 'required',
             'price' => 'required|string',
-            'location' => 'required|string',
             'about' => 'required|string',
             'days' => 'required|string',
-            'thumbnail' => 'image|mimes:jpeg,png,jpg',
-            'photos.*' => 'image|mimes:jpeg,png,jpg',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,webp',
+            'photos.*' => 'image|mimes:jpeg,png,jpg,webp',
         ]);
 
         $data['thumbnail'] = $request->file('thumbnail')->store('uploads', 'public');
@@ -77,7 +79,8 @@ class PackageTourController extends Controller
     public function edit(PackageTour $packageTour)
     {
         $categories = Category::all();
-        return view('tours.edit', compact('packageTour', 'categories'));
+        $cities = City::all();
+        return view('tours.edit', compact('packageTour', 'categories','cities'));
     }
 
     /**
@@ -91,18 +94,19 @@ class PackageTourController extends Controller
             'name' => 'required|string',
             'categoriesfk' => 'required',
             'price' => 'required|string',
-            'location' => 'required|string',
+            'citiesfk' => 'required',
             'about' => 'required|string',
             'days' => 'required|string',
-            'thumbnail' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'photos.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'thumbnail' => 'sometimes|image|mimes:jpeg,png,jpg,webp,svg',
+            'photos.*' => 'sometimes|image|mimes:jpeg,png,jpg,webp,svg',
         ]);
         $data['slug'] = Str::slug($request->name);
         // delete old thumbnail
         if ($request->hasFile('thumbnail')) {
             Storage::disk('public')->delete($packageTour->thumbnail);
+            $data['thumbnail'] = $request->file('thumbnail')->store('uploads', 'public');
         }
-        $data['thumbnail'] = $request->file('thumbnail')->store('uploads', 'public');
+
         // update
         // dd($data);
         $packageTour->update($data);

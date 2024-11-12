@@ -12,6 +12,7 @@ use App\Http\Controllers\PackageBookingController;
 
 Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/categories/{category:slug}', [FrontController::class, 'categories'])->name('categories');
+Route::get('/cities/{city:slug}', [FrontController::class, 'cities'])->name('cities');
 Route::get('/details/{packageTour:slug}', [FrontController::class, 'details'])->name('details');
 Route::get('/search', [FrontController::class, 'search'])->name('search');
 Route::get('/auth/{provider}/redirect',[SocialiteController::class,'redirect'])->name('socialiteRedirect');

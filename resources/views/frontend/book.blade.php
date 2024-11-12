@@ -38,7 +38,7 @@
                   <div class="w-4 h-4">
                     <img src="{{ asset('assets/icons/location-map.svg') }}" class="w-4 h-4" alt="icon">
                   </div>
-                  <span class="text-darkGrey text-sm tracking-035 leading-[22px]">{{ $packageTour->location }}</span>
+                  <span class="text-darkGrey text-sm tracking-035 leading-[22px]">{{ $packageTour->city->name }}, Indonesia</span>
                 </div>
               </div>
               <div class="flex flex-1 items-center justify-end gap-2">
