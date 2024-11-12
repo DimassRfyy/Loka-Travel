@@ -18,14 +18,17 @@ class SocialiteController extends Controller
        }
     
        public function callback($provider) {
-            $socialUser = Socialite::driver($provider)->user();
-    
-            $authUser = $this->store($socialUser, $provider);
-    
-            Auth::login($authUser);
-        
-            return redirect(route('home', absolute: false));
-        }
+         try {
+             $socialUser = Socialite::driver($provider)->user();
+             $authUser = $this->store($socialUser, $provider);
+             Auth::login($authUser);
+             return redirect('/');
+         } catch (\Exception $e) {
+             \Log::error('Socialite callback error: ' . $e->getMessage());
+             return redirect('/login')->withErrors(['msg' => 'Login gagal, coba lagi.']);
+         }
+     }
+     
     
        public function store($socialUser, $provider) {
         $socialAccount = ModelsSocialite::where('provider_id', $socialUser->id)->where('provider_name', $provider)->first();
@@ -51,8 +54,7 @@ class SocialiteController extends Controller
           ]);
 
           $user->assignRole('customer');
-          event(new Registered($user));
-    
+   
           return $user;
         }
     

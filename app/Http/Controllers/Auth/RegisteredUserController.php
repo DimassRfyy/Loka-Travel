@@ -58,7 +58,6 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-        alert()->success('Success', 'Registered successfully.');
-        return redirect(route('home', absolute: false));
+        return redirect()->route('home');
     }
 }

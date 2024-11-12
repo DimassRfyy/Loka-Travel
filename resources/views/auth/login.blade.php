@@ -65,9 +65,17 @@
           <form action="{{ route('login') }}" class="flex flex-col w-full bg-white p-[24px_16px] gap-8 rounded-[22px] items-center" method="POST">
             @csrf
             <div class="flex flex-col gap-1 text-center">
-              <h1 class="font-semibold text-2xl leading-[42px] ">Sign In</h1>
+              <h1 class="font-semibold text-2xl leading-[42px]">Sign In</h1>
               <p class="text-sm leading-[25px] tracking-[0.6px] text-darkGrey">Welcome Back! Enter your valid data</p>
-            </div>
+              
+              @if (session('msg'))
+                  <p class="text-red-500 text-sm mt-2">{{ session('msg') }}</p>
+              @endif
+          
+              @if ($errors->any())
+                  <p class="text-red-500 text-sm mt-2">{{ $errors->first() }}</p>
+              @endif
+          </div>
             <a href="{{ route('socialiteRedirect', 'google') }}"
             class="flex hover:bg-[#06C755] max-w-[311px] transition-all duration-300 text-white w-full bg-[#4D73FF] gap-2 items-center justify-center border border-gray-300 dark:bg-gray-700 px-4 py-2 text-sm font-medium rounded-full dark:text-white shadow-sm disabled:cursor-wait disabled:opacity-50">
             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
