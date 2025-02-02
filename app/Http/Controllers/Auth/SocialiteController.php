@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\Socialite as ModelsSocialite;
+use Illuminate\Support\Facades\Log;
 
 class SocialiteController extends Controller
 {
@@ -24,7 +25,7 @@ class SocialiteController extends Controller
              Auth::login($authUser);
              return redirect('/');
          } catch (\Exception $e) {
-             \Log::error('Socialite callback error: ' . $e->getMessage());
+             Log::error('Socialite callback error: ' . $e->getMessage());
              return redirect('/login')->withErrors(['msg' => 'Login gagal, coba lagi.']);
          }
      }

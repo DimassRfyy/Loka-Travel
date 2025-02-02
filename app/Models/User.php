@@ -5,10 +5,11 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\packageBooking;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -60,5 +61,20 @@ class User extends Authenticatable
         return $this->hasMany(Socialite::class);
     }
 
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::deleting(function ($user) {
+            if ($user->avatar) {
+                Storage::delete($user->avatar);
+            }
+        });
+
+        static::updating(function ($user) {
+            if ($user->isDirty('avatar')) {
+                Storage::delete($user->getOriginal('avatar'));
+            }
+        });
+    }
 }
