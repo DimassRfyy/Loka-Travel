@@ -150,6 +150,32 @@ class FrontController extends Controller
     }
 
     public function search() {
-        return view('frontend.search');
+        $cities = City::all();
+        $categories = Category::all();
+        return view('frontend.search', compact('cities', 'categories'));
+    }
+
+    public function search_result(Request $request)
+    {
+        $packageTours = PackageTour::query();
+
+        if ($request->filled('category')) {
+            $packageTours->where('categoriesfk', $request->category);
+        }
+
+        if ($request->filled('city')) {
+            $packageTours->where('citiesfk', $request->city);
+        }
+
+        if ($request->filled('name')) {
+            $packageTours->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        $packageTours = $packageTours->get();
+
+        $categories = Category::all();
+        $cities = City::all();
+
+        return view('frontend.search_result', compact('packageTours', 'categories', 'cities'));
     }
 }

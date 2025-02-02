@@ -15,6 +15,7 @@ Route::get('/categories/{category:slug}', [FrontController::class, 'categories']
 Route::get('/cities/{city:slug}', [FrontController::class, 'cities'])->name('cities');
 Route::get('/details/{packageTour:slug}', [FrontController::class, 'details'])->name('details');
 Route::get('/search', [FrontController::class, 'search'])->name('search');
+Route::get('/search/package', [FrontController::class, 'search_result'])->name('search.result');
 Route::get('/auth/{provider}/redirect',[SocialiteController::class,'redirect'])->name('socialiteRedirect');
 Route::get('/auth/{provider}/callback',[SocialiteController::class,'callback'])->name('socialiteCallback');
 
