@@ -12,17 +12,22 @@ use Illuminate\Http\Request;
 use App\Models\PackageBooking;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Services\RecommendationService;
+use Illuminate\Support\Facades\DB;
 
 class FrontController extends Controller
 {
-    public function index()
+    public function index(RecommendationService $recommender)
     {
-        // $id = Auth::user()->id;
-        // $user = User::find($id);
-        $categories = Category::orderByDesc('id')->paginate('10');
-        $cities = City::orderByDesc('id')->paginate('10');
-        $tours = PackageTour::orderByDesc('id')->paginate('10');
-        return view('frontend.index', compact('categories', 'tours','cities'));
+        $categories = Category::orderByDesc('id')->paginate(10);
+        $cities = City::orderByDesc('id')->paginate(10);
+        $tours = PackageTour::orderByDesc('id')->paginate(5);
+
+        $recommendedTours = Auth::check() 
+            ? $recommender->getRecommendationsForUser(Auth::user())
+            : collect();
+
+        return view('frontend.index', compact('categories', 'tours', 'cities', 'recommendedTours'));
     }
 
     public function categories(Category $category)
@@ -54,31 +59,31 @@ class FrontController extends Controller
         return view('frontend.book', compact('packageTour'));
     }
     public function book_store(Request $request, PackageTour $packageTour)
-{
-    $data = $request->validate([
-        'startdate' => 'required|date',
-        'quantity' => 'required|numeric',
-        'totalamount' => 'required|numeric',
-    ]);
+    {
+        $data = $request->validate([
+            'startdate' => 'required|date',
+            'quantity' => 'required|numeric',
+            'totalamount' => 'required|numeric',
+        ]);
 
-    $bank = PackageBank::first();
-    $startDate = new Carbon($request->startdate);
-    
-    $data['packagetoursfk'] = $packageTour->id;
-    $data['usersfk'] = Auth::user()->id;
-    $data['packagebanksfk'] = $bank->id;
-    $data['proof'] = 0;
-    $data['ispaid'] = 0;
-    $data['insurance'] = 200000 * $data['quantity'];
-    $data['tax'] = $packageTour->price * 0.1 * $data['quantity'];
-    $data['subtotal'] = $packageTour->price * $data['quantity'];
-    $data['totalamount'] = $data['subtotal'] + $data['tax'] + $data['insurance'];
-    $data['startdate'] = $startDate;
-    $data['enddate'] = $startDate->copy()->addDays($packageTour->days); // Gunakan copy()
+        $bank = PackageBank::first();
+        $startDate = new Carbon($request->startdate);
+        
+        $data['packagetoursfk'] = $packageTour->id;
+        $data['usersfk'] = Auth::user()->id;
+        $data['packagebanksfk'] = $bank->id;
+        $data['proof'] = 0;
+        $data['ispaid'] = 0;
+        $data['insurance'] = 200000 * $data['quantity'];
+        $data['tax'] = $packageTour->price * 0.1 * $data['quantity'];
+        $data['subtotal'] = $packageTour->price * $data['quantity'];
+        $data['totalamount'] = $data['subtotal'] + $data['tax'] + $data['insurance'];
+        $data['startdate'] = $startDate;
+        $data['enddate'] = $startDate->copy()->addDays($packageTour->days); // Gunakan copy()
 
-    $packageBooking = PackageBooking::create($data);
-    return redirect()->route('choose.bank', $packageBooking->id);
-}
+        $packageBooking = PackageBooking::create($data);
+        return redirect()->route('choose.bank', $packageBooking->id);
+    }
     public function choose_bank(PackageBooking $packageBooking)
     {
         if($packageBooking->usersfk != Auth::user()->id){
@@ -114,14 +119,28 @@ class FrontController extends Controller
         $data = $request->validate([
             'proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
         $data['proof'] = $request->file('proof')->store('assets/proof', 'public');
+
         $packageBooking->update([
             'proof' => $data['proof'],
             'ispaid' => 1,
         ]);
-        // dd($packageBooking);
+
+        // Tambahkan rating default 5
+        $userId = auth()->id();
+        $packageTour = $packageBooking->tour; // pastikan relasinya ada
+
+        if ($packageTour) {
+            DB::table('package_tour_user')->updateOrInsert(
+                ['user_id' => $userId, 'package_tour_id' => $packageTour->id],
+                ['rating' => 5, 'updated_at' => now(), 'created_at' => now()]
+            );
+        }
+
         return redirect()->route('book.finish');
     }
+
     public function book_finish()
     {
         return view('frontend.finish');
@@ -171,7 +190,7 @@ class FrontController extends Controller
             $packageTours->where('name', 'like', '%' . $request->name . '%');
         }
 
-        $packageTours = $packageTours->get();
+        $packageTours = $packageTours->paginate(20);
 
         $categories = Category::all();
         $cities = City::all();

@@ -57,6 +57,12 @@ class User extends Authenticatable
         return $this->hasMany(packageBooking::class);
     }
 
+    public function ratedTours()
+    {
+        return $this->belongsToMany(PackageTour::class)->withPivot('rating')->withTimestamps();
+    }
+
+
     public function socialites():HasMany {
         return $this->hasMany(Socialite::class);
     }

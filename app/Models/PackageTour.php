@@ -36,6 +36,12 @@ class PackageTour extends Model
         return $this->hasMany(PackagePhoto::class, 'packagetoursfk', 'id');
     }
 
+    public function ratedByUsers()
+    {
+        return $this->belongsToMany(User::class)->withPivot('rating')->withTimestamps();
+    }
+
+
     public function city()
     {
         return $this->belongsTo(City::class, 'citiesfk');
